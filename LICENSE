@@ -1,4 +1,29 @@
-MIT License
+Hearth — Repository License
+
+This repository contains:
+
+1. Documentation, README, and miscellaneous text files. These materials are
+   licensed under the MIT License (see below).
+
+2. Compiled binaries of the Hearth Launcher and Hearth game-side runtime
+   components attached to GitHub Releases. These binaries are PROPRIETARY
+   and CLOSED SOURCE. They are made available for personal use only.
+   Redistribution, modification, decompilation, reverse-engineering, or
+   commercial repackaging of those proprietary binaries is not permitted.
+   The launcher's installer ships with an end-user license agreement that
+   contains the full terms.
+
+3. The HearthServer host-side supervisor is a separate project, distributed
+   from https://github.com/HumanGenome/HearthServer under the MIT License.
+   When HearthServer-only binaries are attached to releases on this
+   repository, they are governed by HearthServer's MIT License, not by this
+   file. Mixed bundles include both MIT HearthServer files and proprietary
+   Hearth runtime files; each file keeps its own license.
+
+---
+
+MIT License (for materials in this repository, excluding the launcher binary
+and excluding HearthServer):
 
 Copyright (c) 2026 HumanGenome
 
@@ -9,13 +34,13 @@ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
