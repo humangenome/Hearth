@@ -12,6 +12,10 @@ Hearth gives **Bellwright** IP/port dedicated-server multiplayer: players join t
 
 Every player must install Hearth to join a Hearth server. Stock Bellwright cannot connect to Hearth servers directly.
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HumanGenome/Hearth/main/docs/img/launcher.png" alt="Hearth launcher showing a Bellwright server" width="860">
+</p>
+
 ## Features
 
 ### 🧭 Join by IP and port
