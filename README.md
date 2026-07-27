@@ -38,6 +38,9 @@ Players     : 2 / 4
 Version     : hearth-0.1.84
 ```
 
+### 👤 Characters
+Your character is bound to your Steam account, not to the name you type — the name box is a display name. Moving a world between servers keeps everything the world owns; personal characters stay with the Steam accounts that made them. See [docs/WORLDS.md](docs/WORLDS.md).
+
 ### 🔁 Snapshots and rollback
 The server snapshots the world on auto-save, and admins can trigger, list, and restore snapshots over RCON:
 
@@ -49,7 +52,7 @@ snap-20260615T141503Z-7c9e2ab04d11  age=42s  sha=ab12cd34ef56
 > save restore snap-20260615T141503Z-7c9e2ab04d11
 ```
 
-A `save restore` takes a pre-restore snapshot first, swaps the world in, and relaunches Bellwright.
+A `save restore` takes a pre-restore snapshot first, swaps the world in, and relaunches Bellwright. Use the snapshot path — not a raw file copy — to move a world between servers; [docs/WORLDS.md](docs/WORLDS.md) explains why.
 
 ### ♻️ Process supervision
 HearthServer runs the Bellwright dedicated process and watches it with a heartbeat watchdog, so a wedged or crash-looping game is detected and surfaced instead of silently hanging.
