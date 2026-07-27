@@ -35,7 +35,7 @@ Server name : My Bellwright Server
 Map         : Karvenia
 Game        : Bellwright
 Players     : 2 / 4
-Version     : hearth-0.1.8
+Version     : hearth-0.1.84
 ```
 
 ### 🔁 Snapshots and rollback
@@ -63,7 +63,7 @@ Hearth loads mods through UE4SS on both the host and the client. Hearth's own mo
 ## Install
 
 ### Managed hosting
-The easiest option is a [SurvivalServers.com Bellwright server](https://www.survivalservers.com/games/bellwright/?utm_source=github&utm_medium=readme_install&utm_campaign=hearth) (official hosting): the complete Hearth server runtime comes preinstalled and the ports are already configured.
+The easiest option is a [SurvivalServers.com Bellwright server](https://www.survivalservers.com/services/game_servers/bellwright/?utm_source=github&utm_medium=readme_install&utm_campaign=hearth) (official hosting): the complete Hearth server runtime comes preinstalled and the ports are already configured.
 
 ### Players
 1. Download `HearthSetup-latest.exe` from the [latest release](https://github.com/HumanGenome/Hearth/releases/latest).
@@ -73,12 +73,19 @@ The easiest option is a [SurvivalServers.com Bellwright server](https://www.surv
 Hearth checks for launcher updates automatically on launch — you only install once.
 
 ### Self-hosted servers
-1. Download `Hearth-Server-Windows-x64-v<version>.zip` from the [latest HearthServer release](https://github.com/HumanGenome/HearthServer/releases/latest). It is self-contained — it includes the supervisor (`HearthServer\`), Hearth's host-side UE4SS runtime, and the Engine.ini templates.
+1. Download `Hearth-Server-Windows-x64-v<version>.zip` from the [latest HearthServer release](https://github.com/HumanGenome/HearthServer/releases/latest). This archive is the **supervisor** build — `HearthServer.exe`, its .NET runtime, and `HearthSaveGuard.exe`.
 2. Extract it to a stable folder, for example `C:\Hearth\`.
-3. Install the Bellwright dedicated server files under the folder set in `HearthServer\appsettings.json` — install with SteamCMD (app `1812450`). HearthServer launches the game from that folder; it does not ship the game.
-4. Edit `HearthServer\appsettings.json` (server name, ports, `RconPassword`).
+3. Install the Bellwright dedicated server files under the folder set in `appsettings.json` — install with SteamCMD (app `1812450`). HearthServer launches the game from that folder; it does not ship the game.
+4. Edit `appsettings.json` (server name, ports, `RconPassword`).
 5. Forward/open the gameplay port (UDP), query port (UDP), RCON port (TCP), and admin HTTP port (TCP). The gameplay UDP port needs a Windows Defender inbound allow rule, or players can't reach the listen socket.
-6. Run `HearthServer\HearthServer.exe`.
+6. Run `HearthServer.exe`.
+
+The supervisor archive does not include Hearth's host-side UE4SS runtime or the
+Engine.ini templates. Those are what let a Hearth client actually join the world,
+and they currently ship only with the managed hosting runtime — a supervisor-only
+self-host will start Bellwright but Hearth clients will not be able to connect.
+Track [HearthServer](https://github.com/HumanGenome/HearthServer) for the host
+runtime package.
 
 Full server setup, settings, ports, RCON commands, and build instructions live in [HumanGenome/HearthServer](https://github.com/HumanGenome/HearthServer).
 
