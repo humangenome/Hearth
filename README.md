@@ -12,6 +12,8 @@ Hearth gives **Bellwright** IP/port dedicated-server multiplayer: players join t
 
 Every player must install Hearth to join a Hearth server. Stock Bellwright cannot connect to Hearth servers directly.
 
+Running your own server is the part Hearth does not fully publish: the host-side mod that makes Bellwright accept direct IP connections is not released, so the public downloads cannot produce a joinable server on their own. [Self-hosted servers](#self-hosted-servers) explains exactly what is and is not available.
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/HumanGenome/Hearth/main/docs/img/launcher.png" alt="Hearth launcher showing a Bellwright server" width="860">
 </p>
