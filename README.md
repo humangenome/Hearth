@@ -12,7 +12,7 @@ Hearth gives **Bellwright** IP/port dedicated-server multiplayer: players join t
 
 Every player must install Hearth to join a Hearth server. Stock Bellwright cannot connect to Hearth servers directly.
 
-Running your own server is the part Hearth does not fully publish: the host-side mod that makes Bellwright accept direct IP connections is not released, so the public downloads cannot produce a joinable server on their own. [Self-hosted servers](#self-hosted-servers) explains exactly what is and is not available.
+The server side is open source. The complete host package on the [HearthServer release page](https://github.com/HumanGenome/HearthServer/releases/latest) runs a joinable Bellwright server on any Windows box with a copy of the game; see [Self-hosted servers](#self-hosted-servers).
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/HumanGenome/Hearth/main/docs/img/launcher.png" alt="Hearth launcher showing a Bellwright server" width="860">
@@ -67,7 +67,7 @@ HearthServer runs the Bellwright dedicated process and watches it with a heartbe
 Bans, the restart schedule, and an admin audit log are persisted in a local SQLite store, so they survive restarts and reinstalls.
 
 ### 🧩 Mods
-Hearth loads mods through UE4SS on both the host and the client. Hearth's own mods are `bw_host` (host, swaps in the IP/port net driver and opens the listen world) and `HearthConnect` (client, issues the direct join). `HearthConnect` installs with the Hearth app; `bw_host` is not published — see [Self-hosted servers](#self-hosted-servers).
+Hearth loads mods through UE4SS on both the host and the client. Hearth's own mods are `bw_host` (host, swaps in the IP/port net driver and opens the listen world) and `HearthConnect` (client, issues the direct join). `HearthConnect` installs with the Hearth app; `bw_host` ships in the host package from [HumanGenome/HearthServer](https://github.com/HumanGenome/HearthServer).
 
 ## Install
 
@@ -82,37 +82,18 @@ Hearth loads mods through UE4SS on both the host and the client. Hearth's own mo
 Hearth checks for launcher updates automatically on launch — you only install once.
 
 ### Self-hosted servers
-**Hearth does not publish enough to self-host a joinable server.** That is a
-deliberate limitation, and it is worth stating before you download anything.
+The whole server side is open source at
+[HumanGenome/HearthServer](https://github.com/HumanGenome/HearthServer): the
+supervisor, the `bw_host` and `bw_fog` mods, the signature packs, the native
+helpers and the launch script. Its release page ships
+`HearthServer-Host-Windows-x64-v<version>.zip`, a complete host package.
+Extract it on a Windows machine (no GPU needed), install Bellwright with a Steam
+account that owns it, edit `HearthServer\appsettings.json`, and run
+`host-instance.ps1 -GameRoot <your Bellwright folder>`. Players join through
+the Hearth app with your ip and port. The step-by-step guide, ports, RCON and
+admin details are in that repository's README and `docs/ADMIN.md`.
 
-What *is* published is the **supervisor** —
-`HearthServer-Supervisor-Windows-x64-v<version>.zip` on the
-[HearthServer release page](https://github.com/HumanGenome/HearthServer/releases/latest),
-built from open source at
-[HumanGenome/HearthServer](https://github.com/HumanGenome/HearthServer). It is a
-real, complete piece of software: it launches and supervises the Bellwright
-dedicated process, answers Source RCON and A2S query, serves the admin HTTP API,
-persists bans/schedule/audit, and guards the save rotation against regressions.
-It builds and its tests pass from that source alone.
-
-What is **not** published is the host-side UE4SS mod (`bw_host`) and its
-signature files. Bellwright ships `SteamSocketsNetDriver` as its only net driver
-and ignores an `Engine.ini` override of it, so the runtime swap to Unreal's
-`IpNetDriver` and the call that opens the world as a listen server both live in
-that mod. Without it the supervisor starts Bellwright, everything above works,
-and no Hearth client can connect. There is no plan to publish it.
-
-Getting a joinable server from the public pieces therefore means writing your own
-UE4SS host mod for Bellwright. That is reverse-engineering work against a
-shipping UE5.7 build, not a build step or a config flag.
-
-This page used to walk through a supervisor-only self-host as if it produced a
-playable server, and later said the host runtime was "not published yet". Neither
-was right: the steps never produced a joinable world, and the runtime is not
-coming.
-
-Server build instructions and the full server source live in
-[HumanGenome/HearthServer](https://github.com/HumanGenome/HearthServer).
+The client (this app and `HearthConnect`) is closed source.
 
 ## Releases
 
@@ -123,7 +104,7 @@ This repo publishes the launcher only:
 - `Hearth-Launcher-Windows-x64-v<version>.zip` — portable launcher build
 - `checksums-launcher.txt` — hashes for the launcher assets
 
-The supervisor build (`HearthServer-Supervisor-Windows-x64-v<version>.zip`) lives on the [HearthServer release page](https://github.com/HumanGenome/HearthServer/releases/latest). Read [Self-hosted servers](#self-hosted-servers) before you download it — it is not a complete server on its own.
+The host package (`HearthServer-Host-Windows-x64-v<version>.zip`) and the supervisor-only build live on the [HearthServer release page](https://github.com/HumanGenome/HearthServer/releases/latest).
 
 Source archives are generated by GitHub automatically for tags.
 
