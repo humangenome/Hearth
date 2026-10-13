@@ -2,53 +2,46 @@
   <img src="docs/img/hearth-lockup-dark.png" alt="Hearth" width="460">
 </p>
 
+<p align="center">
+  <a href="#install"><img src="https://img.shields.io/badge/Platform-Windows_10%2F11-blue.svg" alt="Platform"></a>
+  <a href="https://store.steampowered.com/app/1812450/"><img src="https://img.shields.io/badge/Game-Bellwright-darkgreen.svg" alt="Game"></a>
+  <a href="#-four-players"><img src="https://img.shields.io/badge/Players-up_to_4-brightgreen.svg" alt="Players"></a>
+  <a href="https://github.com/HumanGenome/HearthServer"><img src="https://img.shields.io/badge/Server_Source-HearthServer-444.svg" alt="Server Source"></a>
+  <a href="#license"><img src="https://img.shields.io/badge/License-see_LICENSE-lightgrey.svg" alt="License"></a>
+</p>
+
 # Hearth
 
-[![Platform](https://img.shields.io/badge/Platform-Windows_10%2F11-blue.svg)](#install)
-[![Game](https://img.shields.io/badge/Game-Bellwright-darkgreen.svg)](https://store.steampowered.com/app/1812450/)
-[![Server Source](https://img.shields.io/badge/Server_Source-HearthServer-brightgreen.svg)](https://github.com/HumanGenome/HearthServer)
+**Bellwright** has no dedicated server. Its multiplayer is co-op for up to four people, hosted from one player's copy of the game. Hearth adds a Bellwright dedicated server: [HearthServer](https://github.com/HumanGenome/HearthServer) runs the game headless on a Windows machine with a public IP and port, and the Hearth app connects players to it by address.
 
-Hearth gives **Bellwright** IP/port dedicated-server multiplayer: players join through the Hearth launcher, hosts run HearthServer next to Bellwright, and the world stays on the server with snapshots, rollback, admin tools, server query, and scheduled restarts. No Steam invite, no host-must-be-online, no peer-to-peer session.
-
-Every player must install Hearth to join a Hearth server. Stock Bellwright cannot connect to Hearth servers directly.
-
-The server side is open source. The complete host package on the [HearthServer release page](https://github.com/HumanGenome/HearthServer/releases/latest) runs a joinable Bellwright server on any Windows box with a copy of the game; see [Self-hosted servers](#self-hosted-servers).
+Every player must install Hearth to join a Hearth server. Stock Bellwright cannot connect to a Hearth server directly.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/HumanGenome/Hearth/main/docs/img/launcher.png" alt="Hearth launcher showing a Bellwright server" width="860">
+  <img src="https://raw.githubusercontent.com/HumanGenome/Hearth/main/docs/img/launcher.png" alt="Hearth app showing a Bellwright server" width="860">
 </p>
 
 ## Features
 
-### 🧭 Join by IP and port
-Add a server address once, pick your character, and connect straight into the hosted world from the launcher.
+### 🧭 Join by address
+Add a server's `ip:port` once and press Connect. Hearth starts your own copy of Bellwright and joins the world directly: no Steam invite, and nobody has to be hosting from their PC.
 
-### 🛠 Admin console
-HearthServer exposes Source RCON (default TCP 7780) with built-ins `help`, `status`, `players`, `ping`, `save snapshot`, `save list`, `save restore <id>`, `say`, `announce`, and `motd`:
+### 👥 Four players
+Bellwright counts its own host as one of four places and sends world data to only three joining players. HearthServer frees the hidden host's place and sends a fourth player the world data the game leaves out.
 
-```
-> announce Server restarts in 10 minutes
-chat ok (admin): Server restarts in 10 minutes
-```
+### 🛡 World protection
+Every autosave is checked before it can do damage. A player record the game drops while that player is offline is put back, a save set that slides back to a starter world is repaired before the next start, and a save left as zeros by a power loss is replaced by the newest intact copy.
 
-`say` and `announce` broadcast to the server's chat channel; `motd` sets the message of the day.
+### ⚙️ Gameplay settings from the server
+Raids, spoilage, damage, village needs and the rest of the game's 21 gameplay settings are set in a file on the server and applied through the game's own setters. On a dedicated host the in-game menu cannot save them.
 
-### 📡 Server query
-HearthServer answers Source A2S query (default UDP 7779), so server browsers, monitoring tools, and bots can read live status, player counts, and the player list:
-
-```
-Server name : My Bellwright Server
-Map         : Karvenia
-Game        : Bellwright
-Players     : 2 / 4
-Version     : hearth-0.1.84
-```
+### 🗺 Map and Travel Signs
+A server with no screen does not record where players have explored, and Travel Signs would lose their links. HearthServer writes each player's exploration into the world and keeps Travel Sign destinations on the map.
 
 ### 👤 Characters
-Your character is bound to your Steam account, not to the name you type — the name box is a display name. Moving a world between servers keeps everything the world owns; personal characters stay with the Steam accounts that made them. See [docs/WORLDS.md](docs/WORLDS.md).
+Your character belongs to your Steam account, not to the name you type in Hearth; the name box is a display name. Moving a world to another server keeps everything the world owns, and personal characters stay with the Steam accounts that made them. See [docs/WORLDS.md](docs/WORLDS.md).
 
 ### 🔁 Snapshots and rollback
-The server snapshots the world on auto-save, and admins can trigger, list, and restore snapshots over RCON:
+Admins can take, list and restore world snapshots over RCON:
 
 ```
 > save snapshot
@@ -58,62 +51,70 @@ snap-20260615T141503Z-7c9e2ab04d11  age=42s  sha=ab12cd34ef56
 > save restore snap-20260615T141503Z-7c9e2ab04d11
 ```
 
-A `save restore` takes a pre-restore snapshot first, swaps the world in, and relaunches Bellwright. Use the snapshot path — not a raw file copy — to move a world between servers; [docs/WORLDS.md](docs/WORLDS.md) explains why.
+A restore takes a snapshot of the current world first, swaps the chosen one in and restarts Bellwright. Use snapshots, not a raw file copy, to move a world between servers; [docs/WORLDS.md](docs/WORLDS.md) explains why.
 
-### ♻️ Process supervision
-HearthServer runs the Bellwright dedicated process and watches it with a heartbeat watchdog, so a wedged or crash-looping game is detected and surfaced instead of silently hanging.
+### 🛠 Admin console
+Source RCON with `status`, `players`, `say`, `announce`, `motd` and the snapshot commands:
 
-### 🚫 Bans, schedule, and audit
-Bans, the restart schedule, and an admin audit log are persisted in a local SQLite store, so they survive restarts and reinstalls.
+```
+> announce Server restarts in 10 minutes
+chat ok (admin): Server restarts in 10 minutes
+```
 
-### 🧩 Mods
-Hearth loads mods through UE4SS on both the host and the client. Hearth's own mods are `bw_host` (host, swaps in the IP/port net driver and opens the listen world) and `HearthConnect` (client, issues the direct join). `HearthConnect` installs with the Hearth app; `bw_host` ships in the host package from [HumanGenome/HearthServer](https://github.com/HumanGenome/HearthServer).
+### 📡 Server query
+The server answers Source A2S query, so server lists, monitors and Discord bots can read its name, map and player count.
+
+### ♻️ Supervision
+The server's supervisor relaunches a game that crashes, and a stop or restart asks the game to save the world before it is closed.
 
 ## Install
 
-### Official hosting
-[SurvivalServers.com](https://www.survivalservers.com/services/game_servers/bellwright/?utm_source=github&utm_medium=readme_install&utm_campaign=hearth) runs Bellwright servers with Hearth already installed.
+### Managed hosting
+[SurvivalServers.com](https://www.survivalservers.com/services/game_servers/bellwright/?utm_source=github&utm_medium=readme_install&utm_campaign=hearth) runs Bellwright servers with Hearth installed.
 
 ### Players
 1. Download `HearthSetup-latest.exe` from the [latest release](https://github.com/HumanGenome/Hearth/releases/latest).
-2. Run the installer. Windows SmartScreen may warn because the installer is not code-signed yet; choose **More info** then **Run anyway**. Hearth installs per-user — no admin rights required.
-3. Open Hearth, add the server address, select or create a character, and click **Connect**.
+2. Run the installer. Windows SmartScreen may warn because the installer is not code-signed yet; choose **More info**, then **Run anyway**. Hearth installs for your Windows user only and needs no admin rights.
+3. Open Hearth, add the server's `ip:port`, and press **Connect**.
 
-Hearth checks for launcher updates automatically on launch — you only install once.
+Hearth checks for its own updates when it starts, so you install it once.
 
 ### Self-hosted servers
-The whole server side is open source at
-[HumanGenome/HearthServer](https://github.com/HumanGenome/HearthServer): the
-supervisor, the `bw_host` and `bw_fog` mods, the signature packs, the native
-helpers and the launch script. Its release page ships
-`HearthServer-Host-Windows-x64-v<version>.zip`, a complete host package.
-Extract it on a Windows machine (no GPU needed), install Bellwright with a Steam
-account that owns it, edit `HearthServer\appsettings.json`, and run
-`host-instance.ps1 -GameRoot <your Bellwright folder>`. Players join through
-the Hearth app with your ip and port. The step-by-step guide, ports, RCON and
-admin details are in that repository's README and `docs/ADMIN.md`.
-
-The client (this app and `HearthConnect`) is closed source.
+The server side is open source at [HumanGenome/HearthServer](https://github.com/HumanGenome/HearthServer). Its release page ships `HearthServer-Host-Windows-x64-<version>.zip`, a complete host package. Extract it on a Windows machine (no GPU needed), install Bellwright on that machine from a Steam account that owns the game, edit `HearthServer\appsettings.json`, and run `host-instance.ps1 -GameRoot <your Bellwright folder>`. Ports, RCON and admin details are in that repository's README and `docs/ADMIN.md`.
 
 ## Releases
 
-This repo publishes the launcher only:
+This repo publishes the player app:
 
-- `HearthSetup-<version>.exe` — installer for players
-- `HearthSetup-latest.exe` — stable download URL that always points at the most recent installer
-- `Hearth-Launcher-Windows-x64-v<version>.zip` — portable launcher build
-- `checksums-launcher.txt` — hashes for the launcher assets
+- `HearthSetup-<version>.exe`: the installer
+- `HearthSetup-latest.exe`: a stable download link that always points at the newest installer
+- `Hearth-Launcher-Windows-x64-v<version>.zip`: the app without an installer
+- `checksums-launcher.txt`: hashes for the files above
 
-The host package (`HearthServer-Host-Windows-x64-v<version>.zip`) and the supervisor-only build live on the [HearthServer release page](https://github.com/HumanGenome/HearthServer/releases/latest).
-
-Source archives are generated by GitHub automatically for tags.
+The host package (`HearthServer-Host-Windows-x64-v<version>.zip`) and the supervisor-only build are on the [HearthServer release page](https://github.com/HumanGenome/HearthServer/releases/latest).
 
 ## Source
 
-Hearth is split across two repos:
+- **Hearth** (this repo): the player app's downloads and documentation. The app itself is closed source.
+- **[HearthServer](https://github.com/HumanGenome/HearthServer)**: the whole server side (the supervisor, the host mods, their native helpers, the signature packs and the launch script). Open source, MIT.
 
-- **Hearth** (this repo) — the client side: the desktop app players install, plus the public downloads and documentation. The app itself is closed source.
-- **[HearthServer](https://github.com/HumanGenome/HearthServer)** — the whole server side: the supervisor, the `bw_host` host mod, the signature packs, the native helpers and the launch script. Open source, MIT.
+## FAQ
+
+### Do players need to own Bellwright?
+Yes. Hearth starts each player's own Steam copy of Bellwright and connects it to the server.
+
+### Why can't I join with the game alone?
+Bellwright only joins co-op sessions through Steam. Hearth adds a small client mod (installed with the app) that joins a server by address instead.
+
+### What happens when Bellwright updates?
+The server package and the app are rebuilt for each Bellwright build. Hearth updates itself when it starts; a self-hosted server should wait for the next HearthServer release before hosting on the new build.
+
+### Can I move a world to another server?
+Yes. Take a snapshot on the old server, download it, and restore it on the new one ([docs/WORLDS.md](docs/WORLDS.md)). The world and everything in it move; each character stays tied to the Steam account that made it.
+
+## Contributing
+
+Report bugs in this repo's [issues](https://github.com/HumanGenome/Hearth/issues), for the app and the server alike. Include the Hearth and HearthServer versions and the relevant lines from the server's `Logs\bw_host.log`. Questions about a hosted server go to your hosting provider. Security issues go through [private reporting](https://github.com/HumanGenome/Hearth/security/advisories/new), never a public issue.
 
 ## Community Note
 
@@ -125,5 +126,5 @@ See [LICENSE](LICENSE).
 
 ## Credits
 
-- [UE4SS](https://github.com/UE4SS-RE/RE-UE4SS) — Unreal Engine scripting and modding framework
-- [Avalonia](https://avaloniaui.net/) — .NET UI framework used by the Hearth launcher
+- [UE4SS](https://github.com/UE4SS-RE/RE-UE4SS): Unreal Engine scripting and modding framework
+- [Avalonia](https://avaloniaui.net/): the UI framework the Hearth app uses

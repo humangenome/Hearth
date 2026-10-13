@@ -31,6 +31,6 @@ Out of scope:
 - Hardware-host vulnerabilities (those belong to your hosting provider)
 - Vulnerabilities in retail Bellwright itself (report to the game's publisher)
 - Vulnerabilities in third-party mods running on Hearth
-- Anti-cheat / cheating concerns — Hearth does not provide anti-cheat
+- Anti-cheat or cheating concerns: Hearth does not provide anti-cheat
 
 Server-source issues can also be reported on [HearthServer](https://github.com/HumanGenome/HearthServer/security/advisories/new); either advisory form reaches the same maintainers.

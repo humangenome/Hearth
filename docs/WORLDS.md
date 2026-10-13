@@ -15,7 +15,7 @@ Two consequences follow from that:
 
 - **The name box in Hearth is a display name, not a character picker.** Typing
   the name of a character that already exists in the world does not attach you
-  to it. There is no character list, because Hearth never selects a character —
+  to it. There is no character list, because Hearth never selects a character;
   Bellwright resolves one from the login identity.
 - **A character belongs to the Steam account that created it.** Characters are
   bound to a Steam64 inside the save file. Joining a world with a different
@@ -30,7 +30,7 @@ not, and cannot, hand you someone else's character.
 
 Importing another player's world works. Their characters come with it, still
 bound to their Steam64 IDs, and you join as a new character in that world. All
-world state — buildings, settlements, map progress, NPCs — carries over; the
+world state (buildings, settlements, map progress, NPCs) carries over; the
 personal character does not.
 
 There is no supported way to reassign a saved character to a different Steam
