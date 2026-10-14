@@ -69,7 +69,7 @@ The server's supervisor relaunches a game that crashes, and a stop or restart as
 
 ## Install
 
-### Managed hosting
+### Rent a server
 [SurvivalServers.com](https://www.survivalservers.com/services/game_servers/bellwright/?utm_source=github&utm_medium=readme_install&utm_campaign=hearth) runs Bellwright servers with Hearth installed.
 
 ### Players
