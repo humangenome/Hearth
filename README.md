@@ -80,7 +80,7 @@ The server's supervisor relaunches a game that crashes, and a stop or restart as
 Hearth checks for its own updates when it starts, so you install it once.
 
 ### Self-hosted servers
-The server side is open source at [HumanGenome/HearthServer](https://github.com/HumanGenome/HearthServer). Its release page ships `HearthServer-Host-Windows-x64-<version>.zip`, a complete host package. Extract it on a Windows machine (no GPU needed), install Bellwright on that machine from a Steam account that owns the game, edit `HearthServer\appsettings.json`, and run `host-instance.ps1 -GameRoot <your Bellwright folder>`. Ports, RCON and admin details are in that repository's README and `docs/ADMIN.md`.
+The server side is open source at [HumanGenome/HearthServer](https://github.com/HumanGenome/HearthServer). Its release page ships `HearthServer-Host-Windows-x64-<version>.zip`, a complete host package. Extract it on a Windows machine with Windows 10 version 1909 or newer, Windows 11 or Windows Server 2022 (no GPU needed; Windows Server 2019 is not supported), install Bellwright on that machine from a Steam account that owns the game, edit `HearthServer\appsettings.json`, and run `host-instance.ps1 -GameRoot <your Bellwright folder>`. Ports, RCON and admin details are in that repository's README and `docs/ADMIN.md`.
 
 ## Releases
 
