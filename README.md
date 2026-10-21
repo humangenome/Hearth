@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/img/hearth-lockup-dark.png" alt="Hearth" width="460">
+  <img src="docs/img/hearth-fireplace-logo.png" alt="Hearth" width="480">
 </p>
 
 <p align="center">
