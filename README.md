@@ -5,6 +5,7 @@
 <p align="center">
   <a href="#install"><img src="https://img.shields.io/badge/Platform-Windows_10%2F11-blue.svg" alt="Platform"></a>
   <a href="https://store.steampowered.com/app/1812450/"><img src="https://img.shields.io/badge/Game-Bellwright-darkgreen.svg" alt="Game"></a>
+  <a href="#how-many-players-can-join"><img src="https://img.shields.io/badge/Players-up_to_3-brightgreen.svg" alt="Players"></a>
   <a href="https://github.com/HumanGenome/HearthServer"><img src="https://img.shields.io/badge/Server_Source-HearthServer-444.svg" alt="Server Source"></a>
   <a href="#license"><img src="https://img.shields.io/badge/License-see_LICENSE-lightgrey.svg" alt="License"></a>
 </p>
@@ -82,6 +83,9 @@ Bellwright only joins co-op sessions through Steam. Hearth adds a small client m
 
 ### What happens when Bellwright updates?
 The server package and the app are rebuilt for each Bellwright build. Hearth updates itself when it starts; a self-hosted server should wait for the next HearthServer release before hosting on the new build.
+
+### How many players can join?
+Three at once. Bellwright's co-op is four places including the host, and the game sends world data to only three joining players; on a Hearth server the host is the server itself.
 
 ### Can I move a world to another server?
 Yes. Take a snapshot on the old server and restore it on the new one; the steps are in [docs/WORLDS.md](docs/WORLDS.md). Use a snapshot, not a raw file copy. The world and everything in it move; each character stays tied to the Steam account that made it.
