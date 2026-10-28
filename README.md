@@ -88,10 +88,10 @@ The server package and the app are rebuilt for each Bellwright build. Hearth upd
 Four at once. Bellwright's co-op is four places including the host, and the game sends world data to only three joining players. A Hearth server has no player hosting it, so it frees the host's place and sends the fourth player that data itself.
 
 ### Can I move a world to another server?
-Yes. Take a snapshot on the old server and restore it on the new one; the steps are in [docs/WORLDS.md](docs/WORLDS.md). Use a snapshot, not a raw file copy. The world and everything in it move; each character stays tied to the Steam account that made it.
+Yes. Take a snapshot on the old server and restore it on the new one; the steps are in [docs/WORLDS.md](docs/WORLDS.md). Use a snapshot, not a raw file copy. The world and everything in it move; each character stays tied to the computer the player joined from.
 
 ### Where is my character saved?
-In the world on the server, tied to your Steam account rather than to the name you type in Hearth: the name box is a display name. See [docs/WORLDS.md](docs/WORLDS.md).
+In the world on the server, tied to the computer you join from (its name and its machine ID), not to your Steam account or the name you type in Hearth. Joining from a different or renamed computer starts a new character; your old one stays in the world and comes back when you join from the original computer. See [docs/WORLDS.md](docs/WORLDS.md).
 
 ## Contributing
 

@@ -5,11 +5,13 @@ a player.
 
 ## How Hearth identifies a character
 
-Hearth joins with the player's Steam account as the login identity. The client
-mod builds the travel URL as `?Name=steam_<steamid64>` and passes the typed
-display name separately as `HearthDisplayName`. Bellwright hashes that login
+Bellwright restores a returning player from the login identity its network
+layer sends. Hearth's direct join uses the engine's offline identity, which is
+the computer's name plus that computer's machine ID (for example
+`DESKTOP-ABC123-` followed by 32 letters and digits). Bellwright hashes that
 identity to create or restore the persistent player record inside the world
-save.
+save. Hearth also sends your Steam ID and display name, but Bellwright does not
+use them to choose the character.
 
 Two consequences follow from that:
 
@@ -17,10 +19,10 @@ Two consequences follow from that:
   the name of a character that already exists in the world does not attach you
   to it. There is no character list, because Hearth never selects a character;
   Bellwright resolves one from the login identity.
-- **A character belongs to the Steam account that created it.** Characters are
-  bound to a Steam64 inside the save file. Joining a world with a different
-  Steam account produces a new character, even if a character with that name is
-  already in the world.
+- **A character belongs to the computer that created it.** Joining the same
+  world from a different computer, or after renaming your computer, produces a
+  new character. The old one is still in the world and comes back when you join
+  from the original computer under its original name.
 
 Hearth's per-server character memory in the launcher is the reverse of this: it
 remembers which of *your* characters you last used for a saved server. It does
@@ -29,11 +31,11 @@ not, and cannot, hand you someone else's character.
 ### Importing someone else's world
 
 Importing another player's world works. Their characters come with it, still
-bound to their Steam64 IDs, and you join as a new character in that world. All
-world state (buildings, settlements, map progress, NPCs) carries over; the
-personal character does not.
+tied to the computers that made them, and you join as a new character in that
+world. All world state (buildings, settlements, map progress, NPCs) carries
+over; the personal character does not.
 
-There is no supported way to reassign a saved character to a different Steam
+There is no supported way to move a saved character to a different computer or
 account. Bellwright owns the persistent-player lifecycle and Hearth does not
 rewrite player records inside a save.
 
