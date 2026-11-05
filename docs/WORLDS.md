@@ -6,38 +6,48 @@ a player.
 ## How Hearth identifies a character
 
 Bellwright restores a returning player from the login identity its network
-layer sends. Hearth's direct join uses the engine's offline identity, which is
-the computer's name plus that computer's machine ID (for example
-`DESKTOP-ABC123-` followed by 32 letters and digits). Bellwright hashes that
-identity to create or restore the persistent player record inside the world
-save. Hearth also sends your Steam ID and display name, but Bellwright does not
-use them to choose the character.
+layer sends. On a Hearth server that identity is the PC's name plus its
+machine ID (for example `DESKTOP-ABC123-` followed by 32 letters and digits),
+and the world save keys each character on it.
 
-Two consequences follow from that:
+From Hearth v0.1.97 and HearthServer v0.1.97, the character follows your Steam
+account instead:
+
+- When you press Connect, Hearth asks Steam for a ticket and the server checks
+  it with Steam. The server then gives Hearth a one-use pass for that join.
+- The server remembers the first PC each Steam account joined from. Join from
+  another PC with a valid pass and the server gives you the character from
+  that first PC.
+- On its first start with this version, a server reads the last 14 days of its
+  own logs and links each Steam ID to the earliest PC that still has a
+  character there, so existing characters carry over.
+- Without a valid pass (an older Hearth, Steam not answering, or an older
+  server), the join works as before: the character belongs to the PC.
+
+Two consequences follow:
 
 - **The name box in Hearth is a display name, not a character picker.** Typing
   the name of a character that already exists in the world does not attach you
   to it. There is no character list, because Hearth never selects a character;
   Bellwright resolves one from the login identity.
-- **A character belongs to the computer that created it.** Joining the same
-  world from a different computer, or after renaming your computer, produces a
-  new character. The old one is still in the world and comes back when you join
-  from the original computer under its original name.
-
-Hearth's per-server character memory in the launcher is the reverse of this: it
-remembers which of *your* characters you last used for a saved server. It does
-not, and cannot, hand you someone else's character.
+- **One character per Steam account on each server.** If you played from two
+  PCs and made two characters, you get the one from the PC you used first. The
+  other stays in the world. A server admin can switch it: stop the server,
+  change that Steam ID's line in `HearthServer\data\identity\steam-map.tsv` to
+  the other PC's ID, then start it.
 
 ### Importing someone else's world
 
-Importing another player's world works. Their characters come with it, still
-tied to the computers that made them, and you join as a new character in that
-world. All world state (buildings, settlements, map progress, NPCs) carries
-over; the personal character does not.
+Importing another player's world works. Their characters come with it, and you
+join as a new character in that world. Each of their players gets their
+character back by making their first join from the PC they played on before.
+All world state (buildings, settlements, map progress, NPCs) carries over; the
+personal character does not.
 
-There is no supported way to move a saved character to a different computer or
-account. Bellwright owns the persistent-player lifecycle and Hearth does not
-rewrite player records inside a save.
+Moving a character to a new PC needs nothing: join from it. There is no
+supported way to move a character to a different Steam account. Bellwright
+owns the persistent-player lifecycle and Hearth does not rewrite player
+records inside a save.
 
 ## Moving a world between servers
 
