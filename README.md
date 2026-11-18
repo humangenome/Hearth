@@ -47,7 +47,7 @@ The **World** window lists the server's backups. Download one, restore an earlie
 The **Console** tab runs admin commands with the server's admin password: check the server, see who is online, and make, list and restore backups.
 
 <p align="center">
-  <img src="docs/img/app-v0.1.96-console.png" alt="The Hearth app's Console tab connected to a server, after the help, save snapshot and save list commands" width="860">
+  <img src="docs/img/app-v0.1.96-console.png" alt="The Hearth app's Console tab connected to a server, after the status, players, save snapshot and save list commands" width="860">
 </p>
 
 ### Also built in
