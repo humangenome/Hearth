@@ -69,6 +69,8 @@ The **Console** tab runs admin commands with the server's admin password: check 
 3. Open Hearth, press **+** and enter the server's IP and port.
 4. Press **Connect**.
 
+If Windows says Smart App Control blocked the installer, wait a day or two for Windows to recognize the new version and run it again, or turn Smart App Control off in Windows Security under App & browser control.
+
 Hearth updates itself.
 
 ### Host your own
