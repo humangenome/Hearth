@@ -71,6 +71,8 @@ The **Console** tab runs admin commands with the server's admin password: check 
 
 If Windows says Smart App Control blocked the installer, wait a day or two for Windows to recognize the new version and run it again, or turn Smart App Control off in Windows Security under App & browser control.
 
+If the app closes to update and then won't open, download the installer from our website and run it again.
+
 Hearth updates itself.
 
 ### Host your own
