@@ -55,7 +55,7 @@ The **Console** tab runs admin commands with the server's admin password: check 
 - **Map exploration and Travel Signs.** Each player's explored map is saved, and Travel Signs keep their links.
 - **Gameplay settings.** Set raids, spoilage, damage, village needs and the rest of the game's 21 gameplay settings on the server.
 - **Save checks.** Every autosave is checked. A character the game loses while its player is offline is put back, a save that went back to a starter world is repaired, and a save damaged by a power cut is replaced by the newest good copy.
-- **Crash restarts.** The server starts Bellwright again if it crashes, and a stop or restart has the game save the world first.
+- **Crash restarts.** The server starts Bellwright again if it crashes, and a stop or restart asks the game to save the world first.
 - **Shows up in server lists.** Server lists, monitoring tools and Discord bots can read its name, map and player count.
 
 ## Install
@@ -71,7 +71,7 @@ The **Console** tab runs admin commands with the server's admin password: check 
 
 If Windows says Smart App Control blocked the installer, wait a day or two for Windows to recognize the new version and run it again, or turn Smart App Control off in Windows Security under App & browser control.
 
-If the app closes to update and then won't open, download the installer from our website and run it again.
+If the app closes to update and then won't open, download `HearthSetup-latest.exe` from the [latest release](https://github.com/HumanGenome/Hearth/releases/latest) and run it again.
 
 Hearth updates itself.
 
